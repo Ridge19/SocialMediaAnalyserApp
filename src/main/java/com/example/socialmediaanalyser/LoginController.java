@@ -51,7 +51,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("Database connected");
-        String loggedInUser = "";
+        UserLabel = new Label();
     }
 
     public LoginController() throws SQLException {
@@ -76,7 +76,9 @@ public class LoginController implements Initializable {
                 loader.setController(mainController);
                 // Create a new scene with the Main-Page.fxml file as the root node.
                 Scene scene = new Scene(root);
-//        UserLabel.setText(loggedInUser);
+
+                UsernameField.setText(UsernameField.getText());
+                UserLabel.setText("Welcome " + loggedInUser);
                 // Get the stage from the event.
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 // Set the scene of the stage to the new scene.
@@ -99,12 +101,6 @@ public class LoginController implements Initializable {
             StatusLabel.setText("fields cannot be empty! try again!");
             e.printStackTrace();
         }
-
-
-
-
-
-
     }
 
     public void CreateAccount(ActionEvent event) throws IOException, SQLException {

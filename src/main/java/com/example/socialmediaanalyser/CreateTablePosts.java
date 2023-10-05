@@ -10,14 +10,14 @@ public class CreateTablePosts {
 
         try (Connection con = DatabaseConnection.getConnection();
              Statement stmt = con.createStatement();) {
-            stmt.executeUpdate("CREATE TABLE IF NOT EXISTS " + TABLE_NAME
-                    + "(id INT NOT NULL,"
-                    + "UserName VARCHAR(20) NOT NULL,"
-                    + "Password VARCHAR(20) NOT NULL,"
-                    + "FirstName VARCHAR(20) NOT NULL,"
-                    + "LastName VARCHAR(20) NOT NULL,"
-                    + "Email VARCHAR(70) NOT NULL,"
-                    + "PRIMARY KEY (id))");
+             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS " + TABLE_NAME
+                    + "(PostID INT NOT NULL,"
+                    + "PostContent VARCHAR(50) NOT NULL,"
+                    + "PostAuthor VARCHAR(20) NOT NULL,"
+                    + "PostLikes INT NOT NULL,"
+                    + "PostShares INT NOT NULL,"
+                    + "DateTime DATETIME NOT NULL,"
+                    + "PRIMARY KEY (PostID))");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

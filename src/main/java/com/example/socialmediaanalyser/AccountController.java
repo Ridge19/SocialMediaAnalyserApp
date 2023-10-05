@@ -69,10 +69,6 @@ public class AccountController implements Initializable {
         }
     }
 
-//    private void checkForDuplicates(String username, String email) throws SQLException {
-//
-//    }
-
     public void CreateAccount() throws SQLException, IOException {
         System.out.println("Making account");
         System.out.println("Successfully passed to AccountController");

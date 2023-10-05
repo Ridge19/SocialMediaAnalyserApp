@@ -15,6 +15,7 @@ import org.controlsfx.control.action.Action;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.io.ObjectInputFilter;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.EventObject;
@@ -58,40 +59,50 @@ public class LoginController implements Initializable {
 
     public LoginModel loginModel = new LoginModel();
     public void SignIn(ActionEvent event) throws SQLException, IOException {
-        System.out.println("Signing in");
 
         try {
             if (loginModel.isLogin(UsernameField.getText(), PasswordField.getText())) {
-                StatusLabel.setText("Username and password is correct!");
-                System.out.println("logged in");
+                System.out.println("Signing in");
                 String loggedInUser = UsernameField.getText();
-                System.out.println("Welcome " + loggedInUser + " User!");
-//                UserLabel.setText(UsernameField.getText());
 
-                UsernameField.setText("Welcome " + UsernameField.getText());
+                System.out.println("Welcome " + loggedInUser + "!");
 
-
-                //pass method to MainController
-                // display Username in UserLabel
-
-
-//                UserLabel.setText(UsernameField.getText());
-                ((Node)event.getSource()).getScene().getWindow().hide();
-                Stage PrimaryStage = new Stage();
-                Pane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+                // Get the MainController instance.
+                MainController mainController = new MainController();
+                // Load the Main-Page.fxml file.
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+                // Set the AccountController instance as the controller for the Main-Page.fxml file.
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Main-Page.fxml"));
+                loader.setController(mainController);
+                // Create a new scene with the Main-Page.fxml file as the root node.
                 Scene scene = new Scene(root);
-                UserLabel.setText(loggedInUser);
-                PrimaryStage.setScene(scene);
-                PrimaryStage.show();
+//        UserLabel.setText(loggedInUser);
+                // Get the stage from the event.
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                // Set the scene of the stage to the new scene.
+                stage.setScene(scene);
+                // Show the stage.
+                stage.show();
             } else {
-                StatusLabel.setText("username and password is not correct!");
-                System.out.println("Cannot log in!");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Wrong Credentials");
+                alert.setHeaderText("ERROR SIGNING IN");
+                alert.setContentText("Incorrect Username or Password! enter again!");
+
+                if (alert.showAndWait().get() == ButtonType.OK) {
+                    Stage stage = (Stage) LoginWindow.getScene().getWindow();
+                    System.out.println("login");
+                }
             }
 
         } catch (SQLException e) {
-            StatusLabel.setText("Fields cannot be empty! enter a username and password!");
+            StatusLabel.setText("fields cannot be empty! try again!");
             e.printStackTrace();
         }
+
+
+
+
 
 
     }

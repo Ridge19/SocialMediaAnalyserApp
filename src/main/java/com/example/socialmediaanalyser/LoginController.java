@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
 import org.w3c.dom.Text;
@@ -23,6 +24,10 @@ import java.util.concurrent.RejectedExecutionException;
 
 public class LoginController implements Initializable {
     public AnchorPane LoginWindow;
+    @FXML
+    public Label StatusLabel;
+    @FXML
+    public Label UserLabel;
     @FXML
     public Label LoginLabel;
     @FXML
@@ -45,7 +50,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("Database connected");
-//        loggedInUser = "";
+        String loggedInUser = "";
     }
 
     public LoginController() throws SQLException {
@@ -54,6 +59,41 @@ public class LoginController implements Initializable {
     public LoginModel loginModel = new LoginModel();
     public void SignIn(ActionEvent event) throws SQLException, IOException {
         System.out.println("Signing in");
+
+        try {
+            if (loginModel.isLogin(UsernameField.getText(), PasswordField.getText())) {
+                StatusLabel.setText("Username and password is correct!");
+                System.out.println("logged in");
+                String loggedInUser = UsernameField.getText();
+                System.out.println("Welcome " + loggedInUser + " User!");
+//                UserLabel.setText(UsernameField.getText());
+
+                UsernameField.setText("Welcome " + UsernameField.getText());
+
+
+                //pass method to MainController
+                // display Username in UserLabel
+
+
+//                UserLabel.setText(UsernameField.getText());
+                ((Node)event.getSource()).getScene().getWindow().hide();
+                Stage PrimaryStage = new Stage();
+                Pane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+                Scene scene = new Scene(root);
+                UserLabel.setText(loggedInUser);
+                PrimaryStage.setScene(scene);
+                PrimaryStage.show();
+            } else {
+                StatusLabel.setText("username and password is not correct!");
+                System.out.println("Cannot log in!");
+            }
+
+        } catch (SQLException e) {
+            StatusLabel.setText("Fields cannot be empty! enter a username and password!");
+            e.printStackTrace();
+        }
+
+
     }
 
     public void CreateAccount(ActionEvent event) throws IOException, SQLException {
@@ -97,8 +137,6 @@ public class LoginController implements Initializable {
             stage.close();
         }
         javafx.application.Platform.exit();
-
-
     }
 
 

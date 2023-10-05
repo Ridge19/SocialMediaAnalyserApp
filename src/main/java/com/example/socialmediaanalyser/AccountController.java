@@ -50,7 +50,6 @@ public class AccountController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
     public void CreateAccount() throws SQLException, IOException {

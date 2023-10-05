@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane fx:id="AccountSetting" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="686.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialmediaanalyser.SocialMediaController">
+<AnchorPane fx:id="AccountSetting" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="686.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialmediaanalyser.MainController">
    <children>
       <Button fx:id="AccountBackButton" layoutX="23.0" layoutY="440.0" mnemonicParsing="false" onAction="#AccountBack" prefHeight="31.0" prefWidth="71.0" text="Back" />
       <Label fx:id="AccountUserLabel" layoutX="178.0" layoutY="39.0" text="ACCOUNT SETTINGS">

@@ -22,7 +22,7 @@
       <TextField fx:id="LastNameField" layoutX="430.0" layoutY="154.0" />
       <Label fx:id="FirstNameLabel" layoutX="333.0" layoutY="104.0" text="First Name" />
       <Label fx:id="LastNameLabel" layoutX="334.0" layoutY="158.0" text="Last Name" />
-      <Label layoutX="198.0" layoutY="37.0" text="--- CREATE ACCOUNT ---">
+      <Label fx:id="CreateLabel" layoutX="198.0" layoutY="37.0" text="--- CREATE ACCOUNT ---">
          <font>
             <Font size="24.0" />
          </font>

@@ -41,6 +41,14 @@ public class EditAccountController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
+    public void UpdateUsernamePassword(ActionEvent event) throws IOException {
+        System.out.println("Update Username or password");
+    }
+
+    public void UpdateFirstLastName(ActionEvent event) throws IOException {
+        System.out.println("Update first or last name");
+    }
+
 
     public void AccountBack(ActionEvent event) throws SQLException, IOException {
         System.out.println("going back to main page");

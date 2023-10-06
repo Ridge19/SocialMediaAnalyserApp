@@ -153,6 +153,7 @@ public class AccountController implements Initializable {
 
         // Close the prepared statement
         preparedStatement.close();
+
     }
 
     public void Back(ActionEvent event) throws SQLException, IOException {

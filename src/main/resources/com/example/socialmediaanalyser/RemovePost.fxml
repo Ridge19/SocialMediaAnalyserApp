@@ -17,5 +17,6 @@
       <Button fx:id="RemoveBackButton" layoutX="31.0" layoutY="344.0" mnemonicParsing="false" onAction="#RemoveBack" text="Back" />
       <TextField fx:id="RemovePostIDField" layoutX="226.0" layoutY="151.0" />
       <Label fx:id="RemovePostIDLabel" layoutX="266.0" layoutY="118.0" text="Enter Post ID" />
+      <Button fx:id="RemoveButton" layoutX="275.0" layoutY="200.0" mnemonicParsing="false" onAction="#RemovePost" text="Remove" />
    </children>
 </AnchorPane>

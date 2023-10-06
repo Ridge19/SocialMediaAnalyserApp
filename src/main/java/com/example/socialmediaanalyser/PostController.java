@@ -1,20 +1,16 @@
 package com.example.socialmediaanalyser;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.AccessibleRole;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -51,12 +47,25 @@ public class PostController implements Initializable {
     @FXML
     public TextField PostDateTimeField;
 
+    // Remove post
+    @FXML
+    public Label RemovePostLabel;
+    @FXML
+    public Label RemovePostIDLabel;
+    @FXML
+    public TextField RemovePostIDField;
+    @FXML
+    public Button RemoveButton;
+    @FXML
+    public Button RemoveBackButton;
+
     @FXML
     public Button AddPostButton;
     @FXML
     public Button PostBackButton;
 
     private Connection connection;
+
 
 
     @Override
@@ -103,6 +112,55 @@ public class PostController implements Initializable {
     public void ListPost() throws IOException {
         System.out.println("Listing all posts...");
     }
+
+    public void RemovePost(ActionEvent event) throws IOException, SQLException {
+        System.out.println("Removing selected post");
+
+        int PostID = Integer.parseInt(RemovePostIDField.getText());
+
+        // Show a success message to the user
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Post Removed");
+        alert.setHeaderText("Success!");
+        alert.setContentText("Your Post has been successfully removed.");
+        alert.showAndWait();
+
+
+        // Create a prepared statement to insert the post into the database
+
+        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Posts WHERE PostID = ?");
+        preparedStatement.setInt(1, PostID);
+
+
+        // Execute the prepared statement
+        preparedStatement.executeUpdate();
+
+        // Close the prepared statement
+        preparedStatement.close();
+
+        // Clear the text fields
+        RemovePostIDField.clear();
+    }
+
+
+        // CHECK IF POST EXISTS BEFORE REMOVING METHOD
+
+//    public void checkPostDoesNotExist(String PostID) throws SQLException {
+//        // Create a prepared statement to check if the Post ID already exists in the database
+//        PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM Posts WHERE PostID = ?");
+//        preparedStatement.setString(1, PostID);
+//
+//        // Execute the prepared statement and get the result
+//        ResultSet resultSet = preparedStatement.executeQuery();
+//
+//        // If the result set is not empty, then the Post ID already exists in the database
+//        if (resultSet.next() && resultSet.getInt(1) == 0) {
+//            throw new SQLException("Post ID doesnt exist! Cannot delete");
+//        }
+//
+//        // Close the prepared statement
+//        preparedStatement.close();
+//    }
 
     public void AddPost(ActionEvent event) throws SQLException, IOException {
         System.out.println("Adding post");

@@ -77,6 +77,19 @@ public class PostController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+//        // Get all posts from the database
+//        ObservableList<String> Posts = null;
+//
+//        try {
+//            Posts = ListPost();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//
+//        // Add the posts to the ListView
+//        ShowPost.setItems(Posts);
     }
 
     public void RemoveBack(ActionEvent event) throws IOException {
@@ -108,9 +121,31 @@ public class PostController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    private ListView<String> ShowPost;
 
-    public void ListPost() throws IOException {
+
+    public void ListPost() throws SQLException {
         System.out.println("Listing all posts...");
+        System.out.println("Button Clicked");
+
+//        ObservableList<String> posts = FXCollections.observableArrayList();
+//
+//        // Create a prepared statement to select all posts from the database
+//        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM posts");
+//
+//        // Execute the prepared statement and get the result
+//        ResultSet resultSet = preparedStatement.executeQuery();
+//
+//        // Iterate over the result set and add the posts to the list
+//        while (resultSet.next()) {
+//            posts.add(resultSet.getString("title"));
+//        }
+//
+//        // Close the prepared statement
+//        preparedStatement.close();
+//
+//        return posts;
     }
 
     public void RemovePost(ActionEvent event) throws IOException, SQLException {
@@ -234,6 +269,7 @@ public class PostController implements Initializable {
         // Close the prepared statement
         preparedStatement.close();
     }
+
 
     //back button to send user back to Main Page.
     public void PostBack(ActionEvent event) throws IOException {

@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.AccessibleRole;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -69,6 +70,36 @@ public class PostController implements Initializable {
         }
     }
 
+    public void RemoveBack(ActionEvent event) throws IOException {
+        System.out.println("going back to main page");
+
+        System.out.println("Adding/Listing Posts");
+
+        // Get the AccountController instance.
+        PostController postController = new PostController();
+
+        // Load the Main-Page.fxml file.
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+
+        // Set the PostController instance as the controller for the AccountPage.fxml file.
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Main-Page.fxml"));
+        loader.setController(postController);
+
+        // Create a new scene with the Main-Page.fxml file as the root node.
+        Scene scene = new Scene(root);
+
+        // Get the stage from the event.
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // Set the scene of the stage to the new scene.
+        stage.setScene(scene);
+
+        // Show the stage.
+        stage.show();
+    }
+
+
     public void ListPost() throws IOException {
         System.out.println("Listing all posts...");
     }
@@ -128,15 +159,16 @@ public class PostController implements Initializable {
         PostDateTimeField.clear();
     }
 
+    //Check for duplicate Post ID
     private void checkForDuplicates(String PostID) throws SQLException {
-        // Create a prepared statement to check if the username already exists in the database
+        // Create a prepared statement to check if the Post ID already exists in the database
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM Posts WHERE PostID = ?");
         preparedStatement.setString(1, PostID);
 
         // Execute the prepared statement and get the result
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        // If the result set is not empty, then the username already exists in the database
+        // If the result set is not empty, then the Post ID already exists in the database
         if (resultSet.next() && resultSet.getInt(1) > 0) {
             throw new SQLException("Post ID already exists");
         }
@@ -145,6 +177,7 @@ public class PostController implements Initializable {
         preparedStatement.close();
     }
 
+    //back button to send user back to Main Page.
     public void PostBack(ActionEvent event) throws IOException {
         System.out.println("going back to main page");
 
@@ -153,14 +186,14 @@ public class PostController implements Initializable {
         // Get the AccountController instance.
         PostController postController = new PostController();
 
-        // Load the AccountPage.fxml file.
+        // Load the Main-Page.fxml file.
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
 
-        // Set the AccountController instance as the controller for the AccountPage.fxml file.
+        // Set the PostController instance as the controller for the AccountPage.fxml file.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Main-Page.fxml"));
         loader.setController(postController);
 
-        // Create a new scene with the AccountPage.fxml file as the root node.
+        // Create a new scene with the Main-Page.fxml file as the root node.
         Scene scene = new Scene(root);
 
         // Get the stage from the event.

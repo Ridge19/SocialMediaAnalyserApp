@@ -61,6 +61,8 @@ public class MainController implements Initializable {
             Stage stage = (Stage) MainPage.getScene().getWindow();
             System.out.println("you successfully logged out!");
             stage.close();
+        } else {
+            Stage stage = (Stage) MainPage.getScene().getWindow();
         }
 
         // Get the AccountController instance.
@@ -114,7 +116,60 @@ public class MainController implements Initializable {
         stage.show();
     }
 
-    public void AccountSettings(ActionEvent event) {
+    public void ShowRemovePost(ActionEvent event) throws IOException {
+        System.out.println("going back to main page");
 
+        System.out.println("Adding/Listing Posts");
+
+        // Get the AccountController instance.
+        PostController postController = new PostController();
+
+        // Load the Main-Page.fxml file.
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("RemovePost.fxml")));
+
+        // Set the PostController instance as the controller for the AccountPage.fxml file.
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("RemovePost.fxml"));
+        loader.setController(postController);
+
+        // Create a new scene with the Main-Page.fxml file as the root node.
+        Scene scene = new Scene(root);
+
+        // Get the stage from the event.
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // Set the scene of the stage to the new scene.
+        stage.setScene(scene);
+
+        // Show the stage.
+        stage.show();
+    }
+
+
+    public void AccountSettings(ActionEvent event) throws IOException {
+        System.out.println("Going to account Settings");
+
+        // Get the AccountController instance.
+        EditAccountController editAccountController = new EditAccountController();
+
+        // Load the AccountPage.fxml file.
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AccountSetting.fxml")));
+
+        // Set the AccountController instance as the controller for the AccountPage.fxml file.
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountSetting.fxml"));
+        loader.setController(editAccountController);
+
+        // Create a new scene with the AccountPage.fxml file as the root node.
+        Scene scene = new Scene(root);
+
+        // Get the stage from the event.
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // Set the scene of the stage to the new scene.
+        stage.setScene(scene);
+
+        // Show the stage.
+        stage.show();
     }
 }

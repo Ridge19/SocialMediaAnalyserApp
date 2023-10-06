@@ -142,6 +142,8 @@ public class LoginController implements Initializable {
             Stage stage = (Stage) LoginWindow.getScene().getWindow();
             System.out.println("you successfully logged out!");
             stage.close();
+        } else {
+            Stage stage = (Stage) LoginWindow.getScene().getWindow();
         }
         javafx.application.Platform.exit();
     }

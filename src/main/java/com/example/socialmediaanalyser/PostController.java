@@ -1,7 +1,5 @@
 package com.example.socialmediaanalyser;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,8 +13,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
+
+// update, delete, show and sort posts.
 
 public class PostController implements Initializable {
     @FXML
@@ -121,15 +122,30 @@ public class PostController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    private ListView<String> ShowPost;
+//    @FXML
+//    private ListView<String> ShowPost;
+//
+
+    public void ListPost() {
+
+    }
+    
 
 
-    public void ListPost() throws SQLException {
-        System.out.println("Listing all posts...");
-        System.out.println("Button Clicked");
+//    public List<ShowPost> ListPost() throws SQLException {
+//        System.out.println("Listing all posts...");
+//        System.out.println("Button Clicked");
+//
+//
+//            // Create a prepared statement to select all posts from the database
+//            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM posts");
+//
+//            // Execute the prepared statement and get the result
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//    }
 
-//        ObservableList<String> posts = FXCollections.observableArrayList();
+//    public <ListPost> Object ListPosts() throws SQLException {
+//        Array<ListPost> posts = new ArrayList<>();
 //
 //        // Create a prepared statement to select all posts from the database
 //        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM posts");
@@ -139,14 +155,23 @@ public class PostController implements Initializable {
 //
 //        // Iterate over the result set and add the posts to the list
 //        while (resultSet.next()) {
-//            posts.add(resultSet.getString("title"));
+//            int postId = resultSet.getInt("PostID");
+//            String postContent = resultSet.getString("Content");
+//            String postAuthor = resultSet.getString("Author");
+//            int likes = resultSet.getInt("Likes");
+//            int shares = resultSet.getInt("Shares");
+//            java.sql.Timestamp timestamp = resultSet.getTimestamp("Timestamp");
+//
+//            posts.add(new ListPost(postId, postContent, postAuthor, likes, shares, timestamp));
 //        }
 //
 //        // Close the prepared statement
 //        preparedStatement.close();
 //
 //        return posts;
-    }
+//    }
+
+
 
     public void RemovePost(ActionEvent event) throws IOException, SQLException {
         System.out.println("Removing selected post");

@@ -23,6 +23,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.RejectedExecutionException;
 
+// login page controller (checks username and password and if it matches with database).
 public class LoginController implements Initializable {
     public AnchorPane LoginWindow;
     @FXML

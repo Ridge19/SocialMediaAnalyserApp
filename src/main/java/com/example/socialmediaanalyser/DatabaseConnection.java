@@ -6,6 +6,7 @@ import java.sql.*;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+// connects to database named DataHub
 public class DatabaseConnection {
     private static final String DB_URL = "jdbc:sqlite:DataHub.db";
 

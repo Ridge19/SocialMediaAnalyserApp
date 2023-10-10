@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+//creates table where users are stored.
 public class CreateTableLogin {
     public static void main(String[] args) {
         final String TABLE_NAME = "Login";

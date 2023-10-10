@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+// main class
 public class SocialMediaAnalyser extends Application {
     @Override
     public void start(Stage stage) throws IOException {

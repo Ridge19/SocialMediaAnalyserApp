@@ -44,6 +44,7 @@ public class MainController implements Initializable {
     public Button SignOut;
     public AnchorPane MainPage;
 
+    // main page controller
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

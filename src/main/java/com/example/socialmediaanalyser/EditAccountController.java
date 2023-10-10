@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.controlsfx.control.action.Action;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,18 +38,136 @@ public class EditAccountController implements Initializable {
     @FXML
     public Button AccountBackButton;
 
+    //change username and password
+    @FXML
+    public Label NewUNameLabel;
+    @FXML
+    public Label NewPWordLabel;
+
+    @FXML
+    public TextField NewUNameField;
+    @FXML
+    public TextField NewPWordField;
+
+    @FXML
+    public Label CurrentUNameLabel;
+    @FXML
+    public TextField CurrentUNameField;
+
+    // change First and Last Name
+    @FXML
+    public Label CurrentFNameLabel;
+    @FXML
+    public Label CurrentLNameLabel;
+    @FXML
+    public Label NewFNameLabel;
+    @FXML
+    public Label NewLNameLabel;
+    @FXML
+    public TextField CurrentLNameField;
+    @FXML
+    public TextField CurrentFNameField;
+    @FXML
+    public TextField NewFNameField;
+    @FXML
+    public TextField NewLNameField;
+
+
+
+    private Connection connection;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            // Connect to the database
+            connection = DriverManager.getConnection("jdbc:sqlite:DataHub.db");
+            System.out.println("Database Connected");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void UpdateUsernamePassword(ActionEvent event) throws IOException {
+    public void UpdateUsernamePassword() throws IOException, SQLException {
         System.out.println("Update Username or password");
+
+        // Get the new username and password from the text fields
+
+        String CurrentUName = CurrentUNameField.getText();
+        String UserName = NewUNameField.getText();
+        String Password = NewPWordField.getText();
+
+
+
+        // Create a prepared statement to update the username and password in the database
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Login SET UserName = ?, Password = ? WHERE UserName = ?");
+
+        // Set the parameters of the prepared statement
+        preparedStatement.setString(1, UserName);
+        preparedStatement.setString(2, Password);
+        preparedStatement.setString(3, CurrentUName);
+
+        // Execute the prepared statement
+        int updatedRows = preparedStatement.executeUpdate();
+
+        // Close the prepared statement
+        preparedStatement.close();
+
+        // Show a success message to the user
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Account Details Updated");
+        alert.setHeaderText("Success!");
+        if (updatedRows > 0) {
+            alert.setContentText("Your Account has been successfully Updated.");
+        } else {
+            alert.setContentText("Account was not updated! try again.");
+        }
+        alert.showAndWait();
     }
 
-    public void UpdateFirstLastName(ActionEvent event) throws IOException {
-        System.out.println("Update first or last name");
-    }
+    public void UpdateFirstLastName() throws IOException, SQLException {
+        System.out.println("Update First Name or Last Name");
 
+        // Get the new First Name and Last Name from the text fields
+
+        // DECLARE VARIABLES
+        String CurrentFName = CurrentFNameField.getText();
+        String CurrentLName = CurrentLNameField.getText();
+        String FirstName = NewFNameField.getText();
+        String LastName = NewLNameField.getText();
+
+
+        // Create a prepared statement to update the username and password in the database
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Login SET FirstName = ?, LastName = ? WHERE FirstName = ? and LastName = ?");
+
+        // Set the parameters of the prepared statement
+        preparedStatement.setString(1, FirstName);
+        preparedStatement.setString(2, LastName);
+        preparedStatement.setString(3, CurrentFName);
+        preparedStatement.setString(4, CurrentLName);
+
+        // Execute the prepared statement
+        int updatedRows = preparedStatement.executeUpdate();
+
+        // Close the prepared statement
+        preparedStatement.close();
+
+        // Show a success message to the user
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Account Details Updated");
+        if (updatedRows > 0) {
+            alert.setHeaderText("Success!");
+            alert.setContentText("Your Account has been successfully Updated.");
+        } else {
+            alert.setHeaderText("Attention!");
+            alert.setContentText("Account was not updated! try again.");
+        }
+        alert.showAndWait();
+
+        CurrentFNameField.clear();
+        CurrentLNameField.clear();
+        NewFNameField.clear();
+        NewLNameField.clear();
+    }
 
     public void AccountBack(ActionEvent event) throws SQLException, IOException {
         System.out.println("going back to main page");

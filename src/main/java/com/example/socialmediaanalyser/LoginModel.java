@@ -7,6 +7,8 @@ import java.sql.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+// checks if connected
+// verifies username and password for login page.
 public class LoginModel {
     Connection connection;
 

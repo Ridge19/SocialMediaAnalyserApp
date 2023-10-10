@@ -5,10 +5,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="266.0" prefWidth="305.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialmediaanalyser.VIPController">
+<AnchorPane fx:id="VIPpage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="266.0" prefWidth="305.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialmediaanalyser.VIPController">
    <children>
-      <Button fx:id="NoButton" layoutX="30.0" layoutY="121.0" mnemonicParsing="false" onAction="#NoVIP" prefHeight="32.0" prefWidth="60.0" text="No" />
+      <Button fx:id="NoButton" layoutX="30.0" layoutY="121.0" mnemonicParsing="false" onAction="#NoVIP" prefHeight="32.0" prefWidth="60.0" text="Back" />
       <Button fx:id="YesButton" layoutX="212.0" layoutY="121.0" mnemonicParsing="false" onAction="#YesVIP" prefHeight="32.0" prefWidth="60.0" text="Yes" />
       <Label fx:id="VIPLabel" layoutX="112.0" layoutY="28.0" text="Upgrade to VIP" />
+      <Label fx:id="FeeLabel" layoutX="115.0" layoutY="92.0" text="Pay fee of $50" />
    </children>
 </AnchorPane>

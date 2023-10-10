@@ -24,9 +24,11 @@ import java.util.ResourceBundle;
 
 public class VIPController implements Initializable {
     @FXML
-    public AnchorPane AccountSetting;
+    public AnchorPane VIPpage;
     @FXML
     public Label VIPLabel;
+    @FXML
+    public Label FeeLabel;
     @FXML
     public Button NoButton;
     @FXML
@@ -37,20 +39,35 @@ public class VIPController implements Initializable {
 
     public void YesVIP(ActionEvent event) throws IOException {
         System.out.println("Signing up for VIP");
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("VIP upgrade");
+        alert.setHeaderText("Thanks for purchasing VIP!");
+        alert.setContentText("Sign out and sign in to gain access to VIP features");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            Stage stage = (Stage) VIPpage.getScene().getWindow();
+            if (stage != null) {
+                stage.show();
+            }
+            System.out.println("Sign out and sign in to gain access to VIP features");
+        } else {
+            // Do nothing.
+        }
     }
 
     public void NoVIP(ActionEvent event) throws IOException {
         System.out.println("Cancelling VIP registration");
 
         // Get the AccountController instance.
-        EditAccountController editAccountController = new EditAccountController();
+        MainController mainController = new MainController();
 
         // Load the AccountPage.fxml file.
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AccountSetting.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
 
         // Set the AccountController instance as the controller for the AccountPage.fxml file.
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountSetting.fxml"));
-        loader.setController(editAccountController);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Main-Page.fxml"));
+        loader.setController(mainController);
 
         // Create a new scene with the AccountPage.fxml file as the root node.
         Scene scene = new Scene(root);

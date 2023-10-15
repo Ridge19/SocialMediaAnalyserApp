@@ -75,7 +75,6 @@ public class Posts {
                 "Post Likes: " + Likes + "\n" +
                 "Post Shares: " + Shares + "\n" +
                 "Post Date and Time: " + dateTime + "\n" +
-                "-----------------------------------" + "\n";
+                "-----------------------------------" + "\n\n";
     }
-
 }

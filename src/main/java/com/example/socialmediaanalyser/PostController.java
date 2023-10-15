@@ -1,5 +1,7 @@
 package com.example.socialmediaanalyser;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -67,8 +70,9 @@ public class PostController implements Initializable {
 
     private Connection connection;
 
-//    private ListView<Post> listView;
-//    private ObservableList<Post> posts;
+    public ListView ShowPost;
+
+    private ObservableList<Posts> posts;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -127,8 +131,42 @@ public class PostController implements Initializable {
 //    private ListView<String> ShowPost;
 //
 
-    public void ListPost() {
+    public void ListPost() throws SQLException {
+        // Get all posts from the database
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM Posts");
 
+        // Create a list of Post objects
+        List<Posts> posts = new ArrayList<>();
+        while (rs.next()) {
+            posts.add(new Posts(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6)));
+        }
+
+        // Create a ListView to display the posts
+        ListView<Posts> listView = new ListView<>();
+        ShowPost.setItems(FXCollections.observableArrayList(posts));
+
+        System.out.println(posts);
+
+        // Set the cell factory for the ListView
+        listView.setCellFactory(lv -> new ListCell<Posts>() {
+            @Override
+            protected void updateItem(Posts post, boolean empty) {
+                super.updateItem(post, empty);
+                if (post != null) {
+                    setText(String.valueOf(post.getContent()));
+                }
+            }
+        });
+
+        // Close the database connection
+//        rs.close();
+//        stmt.close();
+//        connection.close();
+    }
+
+    public void ClearPost() throws IOException {
+        ShowPost.getItems().clear();
     }
 
     public void RemovePost(ActionEvent event) throws IOException, SQLException {

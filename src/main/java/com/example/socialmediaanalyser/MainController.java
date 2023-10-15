@@ -48,6 +48,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
     }
 
     public void SignOut(ActionEvent event) throws SQLException, IOException {
@@ -131,6 +132,35 @@ public class MainController implements Initializable {
         // Set the PostController instance as the controller for the AccountPage.fxml file.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("RemovePost.fxml"));
         loader.setController(postController);
+
+        // Create a new scene with the Main-Page.fxml file as the root node.
+        Scene scene = new Scene(root);
+
+        // Get the stage from the event.
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // Set the scene of the stage to the new scene.
+        stage.setScene(scene);
+
+        // Show the stage.
+        stage.show();
+    }
+
+    public void Sort(ActionEvent event) throws IOException {
+        System.out.println("going to sort post page");
+
+        System.out.println("sorting posts by (n) likes/shares");
+
+        // Get the AccountController instance.
+        SortPostController sortPostController = new SortPostController();
+
+        // Load the Main-Page.fxml file.
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SortPost.fxml")));
+
+        // Set the PostController instance as the controller for the AccountPage.fxml file.
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SortPost.fxml"));
+        loader.setController(sortPostController);
 
         // Create a new scene with the Main-Page.fxml file as the root node.
         Scene scene = new Scene(root);

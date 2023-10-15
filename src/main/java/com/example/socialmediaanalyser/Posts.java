@@ -1,7 +1,7 @@
 package com.example.socialmediaanalyser;
 
 //getters and setters
-public class Posts {
+public class Posts implements Comparable<Posts> {
     public int PostID;
     public String Content;
     public String Author;
@@ -77,4 +77,16 @@ public class Posts {
                 "Post Date and Time: " + dateTime + "\n" +
                 "-----------------------------------" + "\n\n";
     }
+
+    @Override
+    //sort by likes/shares
+    public int compareTo(Posts p) {
+        //returns posts in ascending order (lowest > highest by likes)
+        return this.Likes - p.Likes;
+    }
+
+    public void add(Posts post) {
+    }
+
+
 }

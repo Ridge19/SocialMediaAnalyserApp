@@ -16,7 +16,7 @@
                   <Font size="48.0" />
                </font>
             </Label>
-            <Label fx:id="UserLabel" layoutX="182.0" layoutY="102.0" prefHeight="35.0" prefWidth="276.0">
+            <Label fx:id="UserLabel" layoutX="182.0" layoutY="102.0" prefHeight="35.0" prefWidth="276.0" text="Tst">
                <font>
                   <Font size="24.0" />
                </font>
@@ -38,7 +38,7 @@
             </Label>
             <Button fx:id="AddListButton" layoutX="327.0" layoutY="151.0" mnemonicParsing="false" onAction="#AddList" text="Add / List" />
             <Button fx:id="RemovePostButton" layoutX="327.0" layoutY="204.0" mnemonicParsing="false" onAction="#ShowRemovePost" text="Remove" />
-            <Button fx:id="SortPostButton" layoutX="327.0" layoutY="254.0" mnemonicParsing="false" text="Sort" />
+            <Button fx:id="SortPostButton" layoutX="327.0" layoutY="254.0" mnemonicParsing="false" onAction="#Sort" text="Sort" />
             <Button fx:id="AccountButton" layoutX="33.0" layoutY="48.0" mnemonicParsing="false" onAction="#AccountSettings" text="Account" />
          </children>
       </AnchorPane>

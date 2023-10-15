@@ -83,19 +83,6 @@ public class PostController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-//        // Get all posts from the database
-//        ObservableList<String> Posts = null;
-//
-//        try {
-//            Posts = ListPost();
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//
-//        // Add the posts to the ListView
-//        ShowPost.setItems(Posts);
     }
 
     public void RemoveBack(ActionEvent event) throws IOException {
@@ -126,10 +113,6 @@ public class PostController implements Initializable {
         // Show the stage.
         stage.show();
     }
-
-//    @FXML
-//    private ListView<String> ShowPost;
-//
 
     public void ListPost() throws SQLException {
         // Get all posts from the database
@@ -171,6 +154,13 @@ public class PostController implements Initializable {
 
     public void RemovePost(ActionEvent event) throws IOException, SQLException {
         System.out.println("Removing selected post");
+//
+//        try {
+//            checkPostDoesNotExist(PostID);
+//        } catch (SQLException e){
+//
+//
+//        }
 
         int PostID = Integer.parseInt(RemovePostIDField.getText());
 
@@ -201,22 +191,22 @@ public class PostController implements Initializable {
 
         // CHECK IF POST EXISTS BEFORE REMOVING METHOD
 
-//    public void checkPostDoesNotExist(String PostID) throws SQLException {
-//        // Create a prepared statement to check if the Post ID already exists in the database
-//        PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM Posts WHERE PostID = ?");
-//        preparedStatement.setString(1, PostID);
-//
-//        // Execute the prepared statement and get the result
-//        ResultSet resultSet = preparedStatement.executeQuery();
-//
-//        // If the result set is not empty, then the Post ID already exists in the database
-//        if (resultSet.next() && resultSet.getInt(1) == 0) {
-//            throw new SQLException("Post ID doesnt exist! Cannot delete");
-//        }
-//
-//        // Close the prepared statement
-//        preparedStatement.close();
-//    }
+    public void checkPostDoesNotExist(String PostID) throws SQLException {
+        // Create a prepared statement to check if the Post ID already exists in the database
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM Posts WHERE PostID = ?");
+        preparedStatement.setString(1, PostID);
+
+        // Execute the prepared statement and get the result
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        // If the result set is not empty, then the Post ID already exists in the database
+        if (resultSet.next() && resultSet.getInt(1) == 0) {
+            throw new SQLException("Post ID doesnt exist! Cannot delete");
+        }
+
+        // Close the prepared statement
+        preparedStatement.close();
+    }
 
     public void AddPost(ActionEvent event) throws SQLException, IOException {
         System.out.println("Adding post");
@@ -238,6 +228,13 @@ public class PostController implements Initializable {
             alert.setHeaderText("Duplicate Post ID");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
+            // Clear the text fields
+            PostIDField.clear();
+            PostContentField.clear();
+            PostAuthorField.clear();
+            PostLikesField.clear();
+            PostSharesField.clear();
+            PostDateTimeField.clear();
             return;
         }
 

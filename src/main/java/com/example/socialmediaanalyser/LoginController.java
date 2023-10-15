@@ -80,6 +80,7 @@ public class LoginController implements Initializable {
 
                 UsernameField.setText(UsernameField.getText());
                 UserLabel.setText("Welcome " + loggedInUser);
+                UserLabel.setText("Test");
                 // Get the stage from the event.
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 // Set the scene of the stage to the new scene.
@@ -95,6 +96,8 @@ public class LoginController implements Initializable {
                 if (alert.showAndWait().get() == ButtonType.OK) {
                     Stage stage = (Stage) LoginWindow.getScene().getWindow();
                     System.out.println("login");
+                } else {
+                    //dont do anything
                 }
             }
 

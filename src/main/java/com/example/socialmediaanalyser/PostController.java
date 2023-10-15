@@ -67,7 +67,8 @@ public class PostController implements Initializable {
 
     private Connection connection;
 
-
+//    private ListView<Post> listView;
+//    private ObservableList<Post> posts;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -129,49 +130,6 @@ public class PostController implements Initializable {
     public void ListPost() {
 
     }
-    
-
-
-//    public List<ShowPost> ListPost() throws SQLException {
-//        System.out.println("Listing all posts...");
-//        System.out.println("Button Clicked");
-//
-//
-//            // Create a prepared statement to select all posts from the database
-//            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM posts");
-//
-//            // Execute the prepared statement and get the result
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//    }
-
-//    public <ListPost> Object ListPosts() throws SQLException {
-//        Array<ListPost> posts = new ArrayList<>();
-//
-//        // Create a prepared statement to select all posts from the database
-//        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM posts");
-//
-//        // Execute the prepared statement and get the result
-//        ResultSet resultSet = preparedStatement.executeQuery();
-//
-//        // Iterate over the result set and add the posts to the list
-//        while (resultSet.next()) {
-//            int postId = resultSet.getInt("PostID");
-//            String postContent = resultSet.getString("Content");
-//            String postAuthor = resultSet.getString("Author");
-//            int likes = resultSet.getInt("Likes");
-//            int shares = resultSet.getInt("Shares");
-//            java.sql.Timestamp timestamp = resultSet.getTimestamp("Timestamp");
-//
-//            posts.add(new ListPost(postId, postContent, postAuthor, likes, shares, timestamp));
-//        }
-//
-//        // Close the prepared statement
-//        preparedStatement.close();
-//
-//        return posts;
-//    }
-
-
 
     public void RemovePost(ActionEvent event) throws IOException, SQLException {
         System.out.println("Removing selected post");

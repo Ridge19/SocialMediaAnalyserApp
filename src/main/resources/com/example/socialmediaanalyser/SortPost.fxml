@@ -20,6 +20,7 @@
       <ScrollBar layoutX="548.0" layoutY="180.0" orientation="VERTICAL" prefHeight="291.0" prefWidth="14.0" />
       <Label fx:id="RetrieveLabel" layoutX="221.0" layoutY="87.0" text="Please specify the number of posts to retrieve" />
       <TextField fx:id="SortPostField" layoutX="267.0" layoutY="118.0" />
-      <Button fx:id="SortButton" layoutX="316.0" layoutY="155.0" mnemonicParsing="false" onAction="#SortPostLikes" text="Sort" />
+      <Button fx:id="SortLikesButton" layoutX="241.0" layoutY="155.0" mnemonicParsing="false" onAction="#SortPostLikes" text="Sort by Likes" />
+      <Button fx:id="SortSharesButton" layoutX="361.0" layoutY="155.0" mnemonicParsing="false" onAction="#SortPostShares" prefHeight="25.0" prefWidth="105.0" text="Sort by Shares" />
    </children>
 </AnchorPane>

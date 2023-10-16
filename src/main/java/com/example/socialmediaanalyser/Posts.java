@@ -26,6 +26,13 @@ public class Posts implements Comparable<Posts> {
         this.dateTime = dateTime;
     }
 
+    //Sort method (likes)
+    public Posts(int PostID, String Content, int Likes) {
+        this.PostID = PostID;
+        this.Content = Content;
+        this.Likes = Likes;
+    }
+
     //setters
     public void setPostID(int PostID) {
         this.PostID = PostID;

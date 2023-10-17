@@ -129,8 +129,6 @@ public class PostController implements Initializable {
         ListView<Posts> listView = new ListView<>();
         ShowPost.setItems(FXCollections.observableArrayList(posts));
 
-        System.out.println(posts);
-
         // Set the cell factory for the ListView
         listView.setCellFactory(lv -> new ListCell<Posts>() {
             @Override

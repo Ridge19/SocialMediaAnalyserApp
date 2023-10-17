@@ -2,6 +2,7 @@ package com.example.socialmediaanalyser;
 
 //import com.sun.javafx.menu.MenuItemBase;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,11 +25,15 @@ public class SortPostController implements Initializable {
     @FXML
     public Label RetrieveLabel;
     @FXML
+    public Label InfoLabel;
+    @FXML
     public ListView SortView;
     @FXML
     public TextField SortPostField;
     @FXML
     public Button SortLikesButton;
+    @FXML
+    public Button ClearField;
     @FXML
     public Button SortSharesButton;
     @FXML
@@ -47,10 +52,20 @@ public class SortPostController implements Initializable {
         }
     }
 
-    public void SortPostLikes(ActionEvent e) throws IOException, SQLException {
+    public void SortPostLikes() throws SQLException {
         System.out.println("getting posts...");
         System.out.println("Sorting posts by (n) likes");
 
+        try {
+            checkSortPostFieldEmpty(SortPostField);
+        } catch (NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Sorting Post");
+            alert.setHeaderText("Enter a number!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            SortPostField.clear();
+        }
         // Get all posts from the database
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT PostID, PostContent, PostLikes FROM Posts");
@@ -61,29 +76,90 @@ public class SortPostController implements Initializable {
             posts.add(new Posts(rs.getInt(1), rs.getString(2), rs.getInt(3)));
         }
 
-        SortLikesButton.setOnAction(event -> {
-            int num = Integer.parseInt(SortPostField.getText());
+        ObservableList<String> items = FXCollections.observableArrayList();
 
-            if (num < posts.size()) {
-                System.out.println("The top-" + num + " posts with the most likes are: ");
-                for (int i = 0; i < num; i++) {
-                    Collections.sort(posts, Collections.reverseOrder());
-                    Posts p = posts.get(i);
-                    SortView.setItems(FXCollections.observableArrayList(posts, Collections.reverseOrder()));
+        // Set the items of the ListView to the ObservableList
+        SortView.setItems(items);
 
-                }
-            } else if (num > posts.size()) {
-                System.out.println("Only " + posts.size() + " in the collection. showing all of them.");
-                for (Posts p:posts) {
-                    System.out.println(p.getPostID() + " | " + p.getContent() + " | " + p.getLikes() + "\n");
-                    SortView.setItems(FXCollections.observableArrayList(posts, Collections.reverseOrder()));
-                }
+        int num = Integer.parseInt(SortPostField.getText());
+
+        if (num < posts.size()) {
+            InfoLabel.setText("The top-" + num + " posts with the most likes are: ");
+            for (int i = 0; i < num; i++) {
+                Collections.sort(posts, Collections.reverseOrder());
+                Posts p = posts.get(i);
+                items.add(p.getPostID() + " | " + p.Content + " | " + p.Likes);
             }
-        });
+        } else if (num > posts.size()) {
+            InfoLabel.setText("only " + posts.size() + " in the collection. Showing all of them.");
+            for (Posts p : posts) {
+                items.add(p.getPostID() + " | " + p.Content + " | " + p.Likes);
+            }
+        }
+
+
     }
 
-    public void SortPostShares(ActionEvent event) throws IOException {
+    public static void checkSortPostFieldEmpty(TextField sortPostField) {
+        if (sortPostField.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Cannot sort posts");
+            alert.setContentText("Please enter a number of posts to sort.");
+            alert.showAndWait();
+        }
+    }
+
+    public void SortPostShares(ActionEvent event) throws IOException, SQLException {
         System.out.println("sorting by (n) Shares");
+
+        try {
+            checkSortPostFieldEmpty(SortPostField);
+        } catch (NullPointerException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Sorting Post");
+            alert.setHeaderText("Enter a number!");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+            SortPostField.clear();
+        }
+        // Get all posts from the database
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT PostID, PostContent, PostShares FROM Posts");
+
+        // Create a list of Post objects
+        List<Posts> posts = new ArrayList<>();
+        while (rs.next()) {
+            posts.add(new Posts(rs.getInt(1), rs.getString(2), rs.getInt(3)));
+        }
+
+        ObservableList<String> items = FXCollections.observableArrayList();
+
+        // Set the items of the ListView to the ObservableList
+        SortView.setItems(items);
+
+        int num = Integer.parseInt(SortPostField.getText());
+
+        if (num < posts.size()) {
+            InfoLabel.setText("The top-" + num + " posts with the most likes are: ");
+            for (int i = 0; i < num; i++) {
+                Collections.sort(posts, Collections.reverseOrder());
+                Posts p = posts.get(i);
+                items.add(p.getPostID() + " | " + p.Content + " | " + p.Shares);
+            }
+        } else if (num > posts.size()) {
+            InfoLabel.setText("only " + posts.size() + " in the collection. Showing all of them.");
+            for (Posts p : posts) {
+                items.add(p.getPostID() + " | " + p.Content + " | " + p.Shares);
+            }
+        }
+    }
+
+    public void ClearAll(ActionEvent event) {
+        // Clear the TextField
+        SortPostField.clear();
+        SortView.getItems().clear();
+        InfoLabel.setText("");
     }
 
     public void Back(ActionEvent event) throws IOException {

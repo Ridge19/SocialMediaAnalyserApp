@@ -10,17 +10,19 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialmediaanalyser.SortPostController">
    <children>
-      <Button fx:id="BackButton" layoutX="32.0" layoutY="471.0" mnemonicParsing="false" onAction="#Back" text="Back" />
-      <ListView fx:id="SortView" layoutX="121.0" layoutY="193.0" prefHeight="291.0" prefWidth="441.0" />
+      <Button fx:id="BackButton" layoutX="14.0" layoutY="492.0" mnemonicParsing="false" onAction="#Back" text="Back" />
+      <ListView fx:id="SortView" layoutX="121.0" layoutY="226.0" prefHeight="291.0" prefWidth="441.0" />
       <Label fx:id="SortPost" layoutX="282.0" layoutY="33.0" text="Sort Post">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <ScrollBar layoutX="548.0" layoutY="180.0" orientation="VERTICAL" prefHeight="291.0" prefWidth="14.0" />
+      <ScrollBar layoutX="548.0" layoutY="226.0" orientation="VERTICAL" prefHeight="291.0" prefWidth="14.0" />
       <Label fx:id="RetrieveLabel" layoutX="221.0" layoutY="87.0" text="Please specify the number of posts to retrieve" />
       <TextField fx:id="SortPostField" layoutX="267.0" layoutY="118.0" />
       <Button fx:id="SortLikesButton" layoutX="241.0" layoutY="155.0" mnemonicParsing="false" onAction="#SortPostLikes" text="Sort by Likes" />
       <Button fx:id="SortSharesButton" layoutX="361.0" layoutY="155.0" mnemonicParsing="false" onAction="#SortPostShares" prefHeight="25.0" prefWidth="105.0" text="Sort by Shares" />
+      <Label fx:id="InfoLabel" layoutX="122.0" layoutY="203.0" prefHeight="17.0" prefWidth="441.0" />
+      <Button fx:id="ClearField" layoutX="496.0" layoutY="118.0" mnemonicParsing="false" onAction="#ClearAll" text="Clear All" />
    </children>
 </AnchorPane>

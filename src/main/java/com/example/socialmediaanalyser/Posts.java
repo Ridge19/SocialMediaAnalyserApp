@@ -16,6 +16,13 @@ public class Posts implements Comparable<Posts> {
         this.Shares = Shares;
     }
 
+    public Posts(int postID, String Content, int Likes, int Shares) {
+        this.PostID = postID;
+        this.Content = Content;
+        this.Likes = Likes;
+        this.Shares = Shares;
+    }
+
     //posts (for arraylist)
     public Posts(int PostID, String Content, String Author, int Likes, int Shares, String dateTime) {
         this.PostID = PostID;
@@ -76,12 +83,12 @@ public class Posts implements Comparable<Posts> {
     //toString method for output
     @Override
     public String toString() {
-        return "Post ID: " + PostID + "\n" +
-                "Post Content: " + Content + "\n" +
-                "Post Author: " + Author + "\n" +
-                "Post Likes: " + Likes + "\n" +
-                "Post Shares: " + Shares + "\n" +
-                "Post Date and Time: " + dateTime + "\n" +
+        return "Post ID |" + PostID + "\n" +
+                "Post Content | " + Content + "\n" +
+                "Post Author | " + Author + "\n" +
+                "Post Likes | " + Likes + "\n" +
+                "Post Shares | " + Shares + "\n" +
+                "Post Date and Time | " + dateTime + "\n" +
                 "-----------------------------------" + "\n\n";
     }
 
@@ -94,6 +101,5 @@ public class Posts implements Comparable<Posts> {
 
     public void add(Posts post) {
     }
-
 
 }

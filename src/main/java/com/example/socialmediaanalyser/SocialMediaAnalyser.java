@@ -5,8 +5,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 // main class
@@ -20,7 +22,9 @@ public class SocialMediaAnalyser extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws SQLException {
         launch();
+
     }
 }

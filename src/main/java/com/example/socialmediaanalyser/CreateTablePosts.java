@@ -6,7 +6,8 @@ import java.sql.Statement;
 
 //creates table where posts are stored.
 public class CreateTablePosts {
-    public static void main(String[] args) {
+    public void createPosts() throws SQLException {
+        System.out.println("Posts Table created");
         final String TABLE_NAME = "Posts";
 
         try (Connection con = DatabaseConnection.getConnection();

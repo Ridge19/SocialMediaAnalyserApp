@@ -14,7 +14,12 @@ import java.util.ArrayList;
 // main class
 public class SocialMediaAnalyser extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, SQLException {
+        CreateTableLogin createTableLogin = new CreateTableLogin();
+        createTableLogin.createLogin();
+        CreateTablePosts createTablePosts = new CreateTablePosts();
+        createTablePosts.createPosts();
+
         FXMLLoader fxmlLoader = new FXMLLoader(SocialMediaAnalyser.class.getResource("LoginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 650, 450);
         stage.setTitle("Social Media Manager - Login");

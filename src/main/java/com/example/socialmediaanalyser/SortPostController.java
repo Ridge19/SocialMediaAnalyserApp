@@ -162,7 +162,7 @@ public class SortPostController implements Initializable {
         InfoLabel.setText("");
     }
 
-    public void Back(ActionEvent event) throws IOException {
+    public void Back(ActionEvent event) throws IOException, SQLException {
         System.out.println("going back to main page");
 
         System.out.println("Adding/Listing Posts");

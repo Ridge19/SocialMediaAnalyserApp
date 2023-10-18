@@ -44,6 +44,11 @@ public class MainController implements Initializable {
     public Button SignOut;
     public AnchorPane MainPage;
 
+    public LoginModel loginModel = new LoginModel();
+
+    public MainController() throws SQLException {
+    }
+
     // main page controller
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -62,6 +67,7 @@ public class MainController implements Initializable {
         if (alert.showAndWait().get() == ButtonType.OK) {
             Stage stage = (Stage) MainPage.getScene().getWindow();
             System.out.println("you successfully logged out!");
+            LoginModel.logout();
             stage.close();
         } else {
             Stage stage = (Stage) MainPage.getScene().getWindow();

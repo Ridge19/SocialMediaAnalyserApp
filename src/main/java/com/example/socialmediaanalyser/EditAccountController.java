@@ -87,7 +87,7 @@ public class EditAccountController implements Initializable {
         }
     }
 
-    public void VIP(ActionEvent event) throws IOException {
+    public void VIP(ActionEvent event) throws IOException, SQLException {
         // Get the AccountController instance.
         VIPController vipController = new VIPController();
 

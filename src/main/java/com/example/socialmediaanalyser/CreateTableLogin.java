@@ -6,7 +6,8 @@ import java.sql.Statement;
 
 //creates table where users are stored.
 public class CreateTableLogin {
-    public static void main(String[] args) {
+    public void createLogin() throws SQLException {
+        System.out.println("Login Table created");
         final String TABLE_NAME = "Login";
 
         try (Connection con = DatabaseConnection.getConnection();
@@ -18,10 +19,12 @@ public class CreateTableLogin {
                     + "FirstName VARCHAR(20) NOT NULL,"
                     + "LastName VARCHAR(20) NOT NULL,"
                     + "Email VARCHAR(70) NOT NULL,"
+                    + "VIP INTEGER NOT NULL,"
                     + "PRIMARY KEY (id))");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+
 }
 

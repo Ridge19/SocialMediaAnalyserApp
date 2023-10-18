@@ -17,7 +17,7 @@ import org.w3c.dom.Text;
 import java.io.IOException;
 import java.io.ObjectInputFilter;
 import java.net.URL;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.EventObject;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -49,6 +49,10 @@ public class LoginController implements Initializable {
     @FXML
     public Button QuitButton;
 
+    private Connection connection;
+    private String Password;
+    private String UserName;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("Database connected");
@@ -58,15 +62,37 @@ public class LoginController implements Initializable {
     public LoginController() throws SQLException {
     }
 
-    public LoginModel loginModel = new LoginModel();
+    public LoginModel LoginModel = new LoginModel();
     public void SignIn(ActionEvent event) throws SQLException, IOException {
+        if (connection == null) {
+            System.out.println("The connection variable is null.");
+        } else if (connection.isClosed()) {
+            System.out.println("The connection variable is closed.");
+        }
 
         try {
-            if (loginModel.isLogin(UsernameField.getText(), PasswordField.getText())) {
+            if (LoginModel.isLogin(UsernameField.getText(), PasswordField.getText())) {
                 System.out.println("Signing in");
                 String loggedInUser = UsernameField.getText();
 
                 System.out.println("Welcome " + loggedInUser + "!");
+
+                // Check if the user is a VIP user.
+                if (com.example.socialmediaanalyser.LoginModel.isVIP(loggedInUser)) {
+                    // Open the VIP page.
+                    System.out.println("HELLO VIP");
+                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("VIPWindow.fxml")));
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                } else {
+                    System.out.println("HELLO USER");
+                    // Open the regular user page.
+                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+                    Scene scene = new Scene(root);
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    stage.setScene(scene);
+                }
 
                 // Get the MainController instance.
                 MainController mainController = new MainController();
@@ -78,15 +104,17 @@ public class LoginController implements Initializable {
                 // Create a new scene with the Main-Page.fxml file as the root node.
                 Scene scene = new Scene(root);
 
-                UsernameField.setText(UsernameField.getText());
-                UserLabel.setText("Welcome " + loggedInUser);
-                UserLabel.setText("Test");
-                // Get the stage from the event.
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                // Set the scene of the stage to the new scene.
-                stage.setScene(scene);
-                // Show the stage.
-                stage.show();
+//                UsernameField.setText(UsernameField.getText());
+//                UserLabel.setText("Welcome " + loggedInUser);
+//                UserLabel.setText("Test");
+
+//                // Get the stage from the event.
+//                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//                // Set the scene of the stage to the new scene.
+//                stage.setScene(scene);
+//                // Show the stage.
+//                stage.show();
+
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Wrong Credentials");
@@ -105,6 +133,8 @@ public class LoginController implements Initializable {
             StatusLabel.setText("fields cannot be empty! try again!");
             e.printStackTrace();
         }
+
+
     }
 
     public void CreateAccount(ActionEvent event) throws IOException, SQLException {
@@ -151,6 +181,4 @@ public class LoginController implements Initializable {
         }
         javafx.application.Platform.exit();
     }
-
-
 }

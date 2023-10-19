@@ -27,6 +27,11 @@ public class Posts implements Comparable<Posts> {
         this.Shares = Shares;
     }
 
+    public Posts(int PostID, String Content, int Shares) {
+        this.PostID = PostID;
+        this.Content = Content;
+        this.Shares = Shares;
+    }
 
     //setters
     public void setPostID(int PostID) {

@@ -123,12 +123,12 @@ public class SortPostController implements Initializable {
         }
         // Get all posts from the database
         Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT PostID, PostContent, PostShares, PostLikes FROM Posts");
+        ResultSet rs = stmt.executeQuery("SELECT PostID, PostContent, PostShares FROM Posts");
 
         // Create a list of Post objects
         List<Posts> posts = new ArrayList<>();
         while (rs.next()) {
-            posts.add(new Posts(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
+            posts.add(new Posts(rs.getInt(1), rs.getString(2), rs.getInt(3)));
         }
 
         ObservableList<String> items = FXCollections.observableArrayList();

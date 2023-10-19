@@ -3,12 +3,11 @@ package com.example.socialmediaanalyser;
 public class User {
     public String UserName;
     public String Password;
-    public boolean isVIP;
 
     public User(String UserName, String Password) {
         this.UserName = UserName;
         this.Password = Password;
-        this.isVIP = isVIP;
+
     }
 
     public String getUserName() {
@@ -27,11 +26,4 @@ public class User {
         this.Password = Password;
     }
 
-    public boolean isVIP() {
-        return isVIP;
-    }
-
-    public void setVIP(boolean isVIP) {
-        this.isVIP = isVIP;
-    }
 }

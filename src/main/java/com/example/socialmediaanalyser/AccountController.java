@@ -94,13 +94,12 @@ public class AccountController implements Initializable {
         }
 
         // Create a prepared statement to insert the post into the database
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Login (id,UserName,Password,FirstName,LastName,Email) VALUES (?, ?, ?, ?, ?, ?)");
-        preparedStatement.setInt(1, id);
-        preparedStatement.setString(2, UserName);
-        preparedStatement.setString(3, Password);
-        preparedStatement.setString(4, FirstName);
-        preparedStatement.setString(5, LastName);
-        preparedStatement.setString(6, Email);
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Login (UserName,Password,FirstName,LastName,Email) VALUES (?, ?, ?, ?, ?)");
+        preparedStatement.setString(1, UserName);
+        preparedStatement.setString(2, Password);
+        preparedStatement.setString(3, FirstName);
+        preparedStatement.setString(4, LastName);
+        preparedStatement.setString(5, Email);
 
         // Execute the prepared statement
         preparedStatement.executeUpdate();

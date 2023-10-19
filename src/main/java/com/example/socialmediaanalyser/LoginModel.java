@@ -58,6 +58,8 @@ public class LoginModel {
         // Execute the prepared statement and get the results.
         ResultSet results = statement.executeQuery();
 
+
+
         // Check if the results are empty.
         if (!results.next()) {
             // If the results are empty, the user does not exist in the database.

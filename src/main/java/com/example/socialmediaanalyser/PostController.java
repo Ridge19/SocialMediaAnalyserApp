@@ -152,13 +152,6 @@ public class PostController implements Initializable {
 
     public void RemovePost(ActionEvent event) throws IOException, SQLException {
         System.out.println("Removing selected post");
-//
-//        try {
-//            checkPostDoesNotExist(PostID);
-//        } catch (SQLException e){
-//
-//
-//        }
 
         int PostID = Integer.parseInt(RemovePostIDField.getText());
 
@@ -180,7 +173,7 @@ public class PostController implements Initializable {
         preparedStatement.executeUpdate();
 
         // Close the prepared statement
-        preparedStatement.close();
+//        preparedStatement.close();
 
         // Clear the text fields
         RemovePostIDField.clear();
@@ -203,7 +196,7 @@ public class PostController implements Initializable {
         }
 
         // Close the prepared statement
-        preparedStatement.close();
+//        preparedStatement.close();
     }
 
     public void AddPost(ActionEvent event) throws SQLException, IOException {

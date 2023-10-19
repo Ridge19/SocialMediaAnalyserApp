@@ -68,12 +68,12 @@ public class SortPostController implements Initializable {
         }
         // Get all posts from the database
         Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT PostID, PostContent, PostLikes FROM Posts");
+        ResultSet rs = stmt.executeQuery("SELECT PostID, PostContent, PostLikes, PostShares FROM Posts");
 
         // Create a list of Post objects
         List<Posts> posts = new ArrayList<>();
         while (rs.next()) {
-            posts.add(new Posts(rs.getInt(1), rs.getString(2), rs.getInt(3)));
+            posts.add(new Posts(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
         }
 
         ObservableList<String> items = FXCollections.observableArrayList();
@@ -88,16 +88,14 @@ public class SortPostController implements Initializable {
             for (int i = 0; i < num; i++) {
                 Collections.sort(posts, Collections.reverseOrder());
                 Posts p = posts.get(i);
-                items.add(p.getPostID() + " | " + p.Content + " | " + p.Likes);
+                items.add(p.getPostID() + " | " + p.getContent() + " | " + p.getLikes());
             }
         } else if (num > posts.size()) {
             InfoLabel.setText("only " + posts.size() + " in the collection. Showing all of them.");
             for (Posts p : posts) {
-                items.add(p.getPostID() + " | " + p.Content + " | " + p.Likes);
+                items.add(p.getPostID() + " | " + p.getContent() + " | " + p.getLikes());
             }
         }
-
-
     }
 
     public static void checkSortPostFieldEmpty(TextField sortPostField) {
@@ -125,12 +123,12 @@ public class SortPostController implements Initializable {
         }
         // Get all posts from the database
         Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT PostID, PostContent, PostShares FROM Posts");
+        ResultSet rs = stmt.executeQuery("SELECT PostID, PostContent, PostShares, PostLikes FROM Posts");
 
         // Create a list of Post objects
         List<Posts> posts = new ArrayList<>();
         while (rs.next()) {
-            posts.add(new Posts(rs.getInt(1), rs.getString(2), rs.getInt(3)));
+            posts.add(new Posts(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4)));
         }
 
         ObservableList<String> items = FXCollections.observableArrayList();
@@ -144,13 +142,14 @@ public class SortPostController implements Initializable {
             InfoLabel.setText("The top-" + num + " posts with the most likes are: ");
             for (int i = 0; i < num; i++) {
                 Collections.sort(posts, Collections.reverseOrder());
+//                posts.sort(Comparator.comparingInt(Posts::getShares));
                 Posts p = posts.get(i);
-                items.add(p.getPostID() + " | " + p.Content + " | " + p.Shares);
+                items.add(p.getPostID() + " | " + p.getContent() + " | " + p.getShares());
             }
         } else if (num > posts.size()) {
             InfoLabel.setText("only " + posts.size() + " in the collection. Showing all of them.");
             for (Posts p : posts) {
-                items.add(p.getPostID() + " | " + p.Content + " | " + p.Shares);
+                items.add(p.getPostID() + " | " + p.getContent() + " | " + p.getShares());
             }
         }
     }
@@ -166,6 +165,9 @@ public class SortPostController implements Initializable {
         System.out.println("going back to main page");
 
         System.out.println("Adding/Listing Posts");
+
+        // Close the prepared statement and the connection
+        connection.close();
 
         // Get the postController instance.
         MainController mainController = new MainController();

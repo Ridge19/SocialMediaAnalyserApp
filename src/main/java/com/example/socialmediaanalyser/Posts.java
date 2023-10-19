@@ -9,20 +9,6 @@ public class Posts implements Comparable<Posts> {
     public int Shares;
     public String dateTime;
 
-    // posts (compareTo)
-    public Posts(int PostID, int Likes, int Shares) {
-        this.PostID = PostID;
-        this.Likes = Likes;
-        this.Shares = Shares;
-    }
-
-    public Posts(int postID, String Content, int Likes, int Shares) {
-        this.PostID = postID;
-        this.Content = Content;
-        this.Likes = Likes;
-        this.Shares = Shares;
-    }
-
     //posts (for arraylist)
     public Posts(int PostID, String Content, String Author, int Likes, int Shares, String dateTime) {
         this.PostID = PostID;
@@ -33,12 +19,14 @@ public class Posts implements Comparable<Posts> {
         this.dateTime = dateTime;
     }
 
-    //Sort method (likes)
-    public Posts(int PostID, String Content, int Likes) {
+    // Constructor for creating Posts objects with a value for the Likes field
+    public Posts(int PostID, String Content, int Likes, int Shares) {
         this.PostID = PostID;
         this.Content = Content;
         this.Likes = Likes;
+        this.Shares = Shares;
     }
+
 
     //setters
     public void setPostID(int PostID) {

@@ -19,7 +19,7 @@ public class CreateTableLogin {
                     + "FirstName VARCHAR(20) NOT NULL,"
                     + "LastName VARCHAR(20) NOT NULL,"
                     + "Email VARCHAR(70) NOT NULL,"
-                    + "VIP INTEGER NOT NULL,"
+                    + "VIP BOOLEAN NOT NULL,"
                     + "PRIMARY KEY (id))");
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -51,20 +51,6 @@ public class VIPController implements Initializable {
             e.printStackTrace();
         }
     }
-        private static final String SELECT_VIP_STATUS_SQL = "SELECT VIP FROM Login WHERE UserName = ?";
-
-//        public static String isVIP(String username) throws SQLException {
-//            PreparedStatement statement = connection.prepareStatement(SELECT_VIP_STATUS_SQL);
-//            statement.setString(1, username);
-//            ResultSet resultSet = statement.executeQuery();
-//
-//            if (resultSet.next()) {
-//                int vipStatus = resultSet.getInt("VIP");
-//                return vipStatus == "yes";
-//            } else {
-//                return false;
-//            }
-//        }
 
     public LoginModel LoginModel = new LoginModel();
 
@@ -82,8 +68,8 @@ public class VIPController implements Initializable {
         // If the user clicked Ok, sign them up for VIP
         if (response == ButtonType.OK) {
             // Check if the user is logged in
-            String UserName = new String();
-            String Password = new String();
+            String UserName = "";
+            String Password = "";
             if (isLogin(UserName, Password)) {
                 // Display an error message to the user
                 System.out.println("You must be logged in to sign up for VIP.");
@@ -96,18 +82,17 @@ public class VIPController implements Initializable {
 
                 // **New code:**
                 // Set the logged in user's VIP status to 1
-                LoginModel.setVIP(UserName, true);
+                setVIP(UserName, true);
+                com.example.socialmediaanalyser.LoginModel.isVIP(UserName);
 
                 // Update the user's VIP status in the database
                 // ...
-                // Get the UserName
-                UserName = String.valueOf(loggedInUser(UserName));
 
                 // Create a prepared statement to update the user's VIP status
                 PreparedStatement statement = connection.prepareStatement("UPDATE Login SET VIP = 1 WHERE UserName = ?");
 
                 // Set the parameters of the prepared statement
-                statement.setString(1, UserName);
+                statement.setString(1, user);
 
                 // Execute the prepared statement
                 statement.executeUpdate();
@@ -139,6 +124,8 @@ public class VIPController implements Initializable {
             // Set the scene of the stage to the new scene.
             stage.setScene(scene);
         }
+
+
     }
 
     public static boolean isVIP(String UserName) throws SQLException {

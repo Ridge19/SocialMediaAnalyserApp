@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static com.example.socialmediaanalyser.VIPController.connection;
 
 // checks if connected
 // verifies username and password for login page.

@@ -87,31 +87,6 @@ public class EditAccountController implements Initializable {
         }
     }
 
-    public void VIP(ActionEvent event) throws IOException, SQLException {
-        // Get the AccountController instance.
-        VIPController vipController = new VIPController();
-
-        // Load the AccountPage.fxml file.
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("VIP.fxml")));
-
-        // Set the AccountController instance as the controller for the AccountPage.fxml file.
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("VIP.fxml"));
-        loader.setController(vipController);
-
-        // Create a new scene with the AccountPage.fxml file as the root node.
-        Scene scene = new Scene(root);
-
-        // Get the stage from the event.
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        // Set the scene of the stage to the new scene.
-        stage.setScene(scene);
-
-        // Show the stage.
-        stage.show();
-    }
-
     public void UpdateUsernamePassword() throws IOException, SQLException {
         System.out.println("Update Username or password");
 

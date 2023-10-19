@@ -64,7 +64,5 @@
       <TextField fx:id="CurrentLNameField" layoutX="671.0" layoutY="206.0" />
       <TextField fx:id="NewFNameField" layoutX="671.0" layoutY="254.0" />
       <TextField fx:id="NewLNameField" layoutX="671.0" layoutY="289.0" />
-      <Button fx:id="VIPButton" layoutX="413.0" layoutY="382.0" mnemonicParsing="false" onAction="#VIP" prefHeight="53.0" prefWidth="88.0" text="VIP" />
-      <Label fx:id="VIPLabel" layoutX="416.0" layoutY="360.0" text="Upgrade to VIP" />
    </children>
 </AnchorPane>

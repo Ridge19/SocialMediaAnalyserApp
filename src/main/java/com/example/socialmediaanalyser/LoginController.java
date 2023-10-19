@@ -77,23 +77,6 @@ public class LoginController implements Initializable {
 
                 System.out.println("Welcome " + loggedInUser + "!");
 
-                // Check if the user is a VIP user.
-                if (com.example.socialmediaanalyser.LoginModel.isVIP(loggedInUser)) {
-                    // Open the VIP page.
-                    System.out.println("HELLO VIP");
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("VIPWindow.fxml")));
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    stage.setScene(scene);
-                } else {
-                    System.out.println("HELLO USER");
-                    // Open the regular user page.
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
-                    Scene scene = new Scene(root);
-                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    stage.setScene(scene);
-                }
-
                 // Get the MainController instance.
                 MainController mainController = new MainController();
                 // Load the Main-Page.fxml file.
@@ -104,16 +87,16 @@ public class LoginController implements Initializable {
                 // Create a new scene with the Main-Page.fxml file as the root node.
                 Scene scene = new Scene(root);
 
-//                UsernameField.setText(UsernameField.getText());
-//                UserLabel.setText("Welcome " + loggedInUser);
-//                UserLabel.setText("Test");
+                UsernameField.setText(UsernameField.getText());
+                UserLabel.setText("Welcome " + loggedInUser);
+                UserLabel.setText("Test");
 
-//                // Get the stage from the event.
-//                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//                // Set the scene of the stage to the new scene.
-//                stage.setScene(scene);
-//                // Show the stage.
-//                stage.show();
+                // Get the stage from the event.
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                // Set the scene of the stage to the new scene.
+                stage.setScene(scene);
+                // Show the stage.
+                stage.show();
 
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);

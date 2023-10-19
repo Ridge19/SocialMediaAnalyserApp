@@ -13,14 +13,13 @@ public class CreateTableLogin {
         try (Connection con = DatabaseConnection.getConnection();
              Statement stmt = con.createStatement();) {
             stmt.executeUpdate("CREATE TABLE IF NOT EXISTS " + TABLE_NAME
-                    + "(id INT NOT NULL,"
-                    + "UserName VARCHAR(20) NOT NULL,"
+                    + "(UserName VARCHAR(20) NOT NULL,"
                     + "Password VARCHAR(20) NOT NULL,"
                     + "FirstName VARCHAR(20) NOT NULL,"
                     + "LastName VARCHAR(20) NOT NULL,"
                     + "Email VARCHAR(70) NOT NULL,"
                     + "VIP BOOLEAN NOT NULL,"
-                    + "PRIMARY KEY (id))");
+                    + "PRIMARY KEY (UserName))");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

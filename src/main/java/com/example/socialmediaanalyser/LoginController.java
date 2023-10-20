@@ -1,5 +1,6 @@
 package com.example.socialmediaanalyser;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,19 +64,37 @@ public class LoginController implements Initializable {
     }
 
     public LoginModel LoginModel = new LoginModel();
+
     public void SignIn(ActionEvent event) throws SQLException, IOException {
-        if (connection == null) {
-            System.out.println("The connection variable is null.");
-        } else if (connection.isClosed()) {
-            System.out.println("The connection variable is closed.");
-        }
+        Connection connection = null;
 
         try {
-            if (LoginModel.isLogin(UsernameField.getText(), PasswordField.getText())) {
-                System.out.println("Signing in");
-                String loggedInUser = UsernameField.getText();
+            connection = DriverManager.getConnection("jdbc:sqlite:DataHub.db");
 
-                System.out.println("Welcome " + loggedInUser + "!");
+            if (com.example.socialmediaanalyser.LoginModel.isLogin(UsernameField.getText(), PasswordField.getText(), connection)) {
+                System.out.println("Signing in");
+                com.example.socialmediaanalyser.LoginModel.setLoggedInUser(UsernameField.getText());
+                System.out.println("user name is: " + UsernameField.getText());
+
+                if (com.example.socialmediaanalyser.LoginModel.isLoggedIn()) {
+                    System.out.println("You are now logged in!");
+
+                    String loggedInUser = UsernameField.getText();
+                    System.out.println("Welcome " + loggedInUser + "!");
+                    UserLabel.setText(loggedInUser);
+
+                    UserLabel.setText("Welcome " + com.example.socialmediaanalyser.LoginModel.loggedInUser(UserName));
+                    UserLabel.setText("Test");
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Login successful");
+                    alert.setHeaderText("welcome " + loggedInUser + "!");
+                    alert.setContentText("You have access to DataHub features!");
+
+                    Platform.runLater(() -> {
+                        alert.show();
+                    });
+                }
 
                 // Get the MainController instance.
                 MainController mainController = new MainController();
@@ -86,10 +105,6 @@ public class LoginController implements Initializable {
                 loader.setController(mainController);
                 // Create a new scene with the Main-Page.fxml file as the root node.
                 Scene scene = new Scene(root);
-
-                UsernameField.setText(UsernameField.getText());
-                UserLabel.setText("Welcome " + loggedInUser);
-                UserLabel.setText("Test");
 
                 // Get the stage from the event.
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -115,9 +130,11 @@ public class LoginController implements Initializable {
         } catch (SQLException e) {
             StatusLabel.setText("fields cannot be empty! try again!");
             e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
         }
-
-
     }
 
     public void CreateAccount(ActionEvent event) throws IOException, SQLException {

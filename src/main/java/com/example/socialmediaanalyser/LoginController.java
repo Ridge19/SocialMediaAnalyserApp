@@ -71,6 +71,16 @@ public class LoginController implements Initializable {
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:DataHub.db");
 
+            if (UsernameField.getText().isEmpty() || PasswordField.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Empty fields");
+                alert.setHeaderText("Please fill in the username and password fields.");
+                alert.setContentText("Cannot sign in with empty fields.");
+
+                alert.showAndWait();
+                return;
+            }
+
             if (com.example.socialmediaanalyser.LoginModel.isLogin(UsernameField.getText(), PasswordField.getText(), connection)) {
                 System.out.println("Signing in");
                 com.example.socialmediaanalyser.LoginModel.setLoggedInUser(UsernameField.getText());
@@ -83,6 +93,7 @@ public class LoginController implements Initializable {
                     System.out.println("Welcome " + loggedInUser + "!");
                     UserLabel.setText(loggedInUser);
 
+                    UserLabel.getText();
                     UserLabel.setText("Welcome " + com.example.socialmediaanalyser.LoginModel.loggedInUser(UserName));
                     UserLabel.setText("Test");
 
@@ -94,30 +105,31 @@ public class LoginController implements Initializable {
                     Platform.runLater(() -> {
                         alert.show();
                     });
+
+                    // Get the MainController instance.
+                    MainController mainController = new MainController();
+                    // Load the Main-Page.fxml file.
+                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
+                    // Set the AccountController instance as the controller for the Main-Page.fxml file.
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("Main-Page.fxml"));
+                    loader.setController(mainController);
+                    // Create a new scene with the Main-Page.fxml file as the root node.
+                    Scene scene = new Scene(root);
+
+                    // Get the stage from the event.
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    // Set the scene of the stage to the new scene.
+                    stage.setScene(scene);
+                    // Show the stage.
+                    stage.show();
                 }
-
-                // Get the MainController instance.
-                MainController mainController = new MainController();
-                // Load the Main-Page.fxml file.
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Main-Page.fxml")));
-                // Set the AccountController instance as the controller for the Main-Page.fxml file.
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Main-Page.fxml"));
-                loader.setController(mainController);
-                // Create a new scene with the Main-Page.fxml file as the root node.
-                Scene scene = new Scene(root);
-
-                // Get the stage from the event.
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                // Set the scene of the stage to the new scene.
-                stage.setScene(scene);
-                // Show the stage.
-                stage.show();
-
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Wrong Credentials");
                 alert.setHeaderText("ERROR SIGNING IN");
                 alert.setContentText("Incorrect Username or Password! enter again!");
+                UsernameField.clear();
+                PasswordField.clear();
 
                 if (alert.showAndWait().get() == ButtonType.OK) {
                     Stage stage = (Stage) LoginWindow.getScene().getWindow();
@@ -126,7 +138,6 @@ public class LoginController implements Initializable {
                     //dont do anything
                 }
             }
-
         } catch (SQLException e) {
             StatusLabel.setText("fields cannot be empty! try again!");
             e.printStackTrace();

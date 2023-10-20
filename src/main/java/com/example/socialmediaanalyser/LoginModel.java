@@ -1,10 +1,8 @@
 package com.example.socialmediaanalyser;
 
-import java.net.URL;
 import java.sql.*;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 
 // checks if connected
@@ -44,44 +42,8 @@ public class LoginModel {
         return loggedInUser != null;
     }
 
-    public static boolean isVIP(String UserName) throws SQLException {
-        // Get the user's VIP status from the database
-        // ...
-        // Create a prepared statement to get the user's VIP status.
 
-        PreparedStatement statement = connection.prepareStatement("SELECT VIP FROM Login WHERE UserName = ?");
-
-        // Set the parameter of the prepared statement.
-        statement.setString(1, UserName);
-
-        // Execute the prepared statement and get the results.
-        ResultSet results = statement.executeQuery();
-
-
-
-        // Check if the results are empty.
-        if (!results.next()) {
-            // If the results are empty, the user does not exist in the database.
-            return false;
-        }
-
-        // Get the user's VIP status from the results.
-        boolean isVIP = results.getBoolean("VIP");
-
-        // Return the user's VIP status.
-        return isVIP;
-
-        // Return the user's VIP status
-        // Replace this with the actual code to get the user's VIP status from the database
-        // Close the prepared statement and the connection.
-    }
-
-    public static void setVIP(String UserName, boolean isVIP) {
-        // Update the user's VIP status in the database
-        // ...
-    }
-
-    public static boolean isLogin(String UserName, String Password) throws SQLException {
+    public static boolean isLogin(String UserName, String Password, Connection connection) throws SQLException {
         if (!isDbConnected()) {
             throw new SQLException("Connection to database is closed.");
         }
@@ -121,10 +83,12 @@ public class LoginModel {
     }
 
     public static void logout() {
-        try {
-            databaseConnection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (databaseConnection != null) {
+            try {
+                databaseConnection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

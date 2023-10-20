@@ -2,7 +2,12 @@ package com.example.socialmediaanalyser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 import java.io.ByteArrayInputStream;
@@ -18,14 +23,47 @@ import static org.junit.Assert.*;
 public class SocialMediaTest {
     private SocialMediaTest test;
 
+    private Connection connection;
+
     @Before
-    public void setUp() {
+    public void setUp() throws SQLException {
+
         test = new SocialMediaTest();
+        connection = DriverManager.getConnection("jdbc:sqlite:DataHub.db");
+
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws SQLException {
+
         System.setIn(System.in);
+        connection.close();
+    }
+
+    // database JUnit testing
+    @Test
+    public void testDatabaseConnection() throws SQLException {
+        assertTrue(connection.isValid(1000));
+    }
+
+    // checks if the table Posts exists in Database DataHub.db
+    @Test
+    public void testPostsTableExists() throws SQLException {
+        String tableExistsQuery = "SELECT EXISTS (SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'Posts')";
+        ResultSet resultSet = connection.createStatement().executeQuery(tableExistsQuery);
+        boolean tableExists = resultSet.getBoolean(1);
+
+        assertTrue(tableExists);
+    }
+
+    // checks if the table Login exists in Database DataHub.db
+    @Test
+    public void testLoginTableExists() throws SQLException {
+        String tableExistsQuery = "SELECT EXISTS (SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'Login')";
+        ResultSet resultSet = connection.createStatement().executeQuery(tableExistsQuery);
+        boolean tableExists = resultSet.getBoolean(1);
+
+        assertTrue(tableExists);
     }
 
 
@@ -96,7 +134,7 @@ public class SocialMediaTest {
         assertTrue(postsList.isEmpty());
     }
 
-    @Test //optoin 2 on menu
+    @Test //option 2 on menu
     public void RemovePost() {
         //add a sample post
         int postID = 123;

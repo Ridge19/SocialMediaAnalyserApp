@@ -42,8 +42,7 @@ public class AccountController implements Initializable {
     public TextField FirstNameField;
     @FXML
     public TextField LastNameField;
-    @FXML
-    public TextField EmailField;
+
     @FXML
     public Button CreateAccountButton;
     @FXML
@@ -79,27 +78,25 @@ public class AccountController implements Initializable {
         String Password = PasswordField.getText();
         String FirstName = FirstNameField.getText();
         String LastName = LastNameField.getText();
-        String Email = EmailField.getText();
 
         try {
-            checkForDuplicates(UserName, Email);
+            checkForDuplicates(UserName);
         } catch (SQLException e) {
             // Display an error message to the user
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Creating Account");
-            alert.setHeaderText("Duplicate Username or Email");
+            alert.setHeaderText("Duplicate Username");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
             return;
         }
 
         // Create a prepared statement to insert the post into the database
-        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Login (UserName,Password,FirstName,LastName,Email) VALUES (?, ?, ?, ?, ?)");
+        PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Login (UserName,Password,FirstName,LastName) VALUES (?, ?, ?, ?)");
         preparedStatement.setString(1, UserName);
         preparedStatement.setString(2, Password);
         preparedStatement.setString(3, FirstName);
         preparedStatement.setString(4, LastName);
-        preparedStatement.setString(5, Email);
 
         // Execute the prepared statement
         preparedStatement.executeUpdate();
@@ -119,12 +116,11 @@ public class AccountController implements Initializable {
         PasswordField.clear();
         FirstNameField.clear();
         LastNameField.clear();
-        EmailField.clear();
     }
 
-    private void checkForDuplicates(String UserName, String Email) throws SQLException {
+    private void checkForDuplicates(String UserName) throws SQLException {
         // Create a prepared statement to check if the username already exists in the database
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM Login WHERE username = ?");
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM Login WHERE UserName = ?");
         preparedStatement.setString(1, UserName);
 
         // Execute the prepared statement and get the result
@@ -137,22 +133,6 @@ public class AccountController implements Initializable {
 
         // Close the prepared statement
         preparedStatement.close();
-
-        // Create a prepared statement to check if the email address already exists in the database
-        preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM Login WHERE Email = ?");
-        preparedStatement.setString(1, Email);
-
-        // Execute the prepared statement and get the result
-        resultSet = preparedStatement.executeQuery();
-
-        // If the result set is not empty, then the email address already exists in the database
-        if (((ResultSet) resultSet).next() && resultSet.getInt(1) > 0) {
-            throw new SQLException("Email address already exists");
-        }
-
-        // Close the prepared statement
-        preparedStatement.close();
-
     }
 
     public void Back(ActionEvent event) throws SQLException, IOException {

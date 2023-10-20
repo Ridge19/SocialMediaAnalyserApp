@@ -58,6 +58,18 @@ public class SortPostController implements Initializable {
 
         try {
             checkSortPostFieldEmpty(SortPostField);
+            try {
+                String PostLikes = SortPostField.getText(); // get the text from the SortPostField textfield
+
+                // Convert the text to an integer
+                int PostLike = Integer.parseInt(PostLikes);
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("cannot sort Post");
+                alert.setHeaderText("Enter a integer!");
+                alert.showAndWait();
+                SortPostField.clear();
+            }
         } catch (NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Sorting Post");
@@ -66,6 +78,7 @@ public class SortPostController implements Initializable {
             alert.showAndWait();
             SortPostField.clear();
         }
+
         // Get all posts from the database
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT PostID, PostContent, PostLikes, PostShares FROM Posts");
@@ -113,6 +126,18 @@ public class SortPostController implements Initializable {
 
         try {
             checkSortPostFieldEmpty(SortPostField);
+            try {
+                String PostShares = SortPostField.getText(); // get the text from the SortPostField textfield
+
+                // Convert the text to an integer
+                int PostShare = Integer.parseInt(PostShares);
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("cannot sort Post");
+                alert.setHeaderText("Enter a integer!");
+                alert.showAndWait();
+                SortPostField.clear();
+            }
         } catch (NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Sorting Post");

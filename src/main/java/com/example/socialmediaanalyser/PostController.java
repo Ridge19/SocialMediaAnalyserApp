@@ -115,6 +115,8 @@ public class PostController implements Initializable {
     }
 
     public void ListPost() throws SQLException {
+        System.out.println("listing posts");
+
         // Get all posts from the database
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM Posts");
@@ -123,6 +125,15 @@ public class PostController implements Initializable {
         List<Posts> posts = new ArrayList<>();
         while (rs.next()) {
             posts.add(new Posts(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getString(6)));
+        }
+
+        // If there are no posts in the database, then show an Alert
+        if (posts.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No posts found");
+            alert.setHeaderText("No posts found in database");
+            alert.setContentText("Please add a post first");
+            alert.show();
         }
 
         // Create a ListView to display the posts
@@ -138,6 +149,7 @@ public class PostController implements Initializable {
                     setText(String.valueOf(post.getContent()));
                 }
             }
+
         });
 
         // Close the database connection
@@ -153,35 +165,55 @@ public class PostController implements Initializable {
     public void RemovePost(ActionEvent event) throws IOException, SQLException {
         System.out.println("Removing selected post");
 
+        // Check if the RemovePostIDField is empty
+        if (RemovePostIDField.getText() == null || RemovePostIDField.getText().isEmpty()) {
+            // Show an error message to the user
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setHeaderText("Post ID cannot be empty");
+            alert.setContentText("enter a Post ID!");
+            alert.showAndWait();
+            return;
+        }
+
         int PostID = Integer.parseInt(RemovePostIDField.getText());
 
-        // Show a success message to the user
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Post Removed");
-        alert.setHeaderText("Success!");
-        alert.setContentText("Your Post has been successfully removed.");
-        alert.showAndWait();
+        try {
+            checkPostDoesNotExist(String.valueOf(PostID));
+
+            // Create a prepared statement to insert the post into the database
+
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Posts WHERE PostID = ?");
+            preparedStatement.setInt(1, PostID);
 
 
-        // Create a prepared statement to insert the post into the database
+            // Execute the prepared statement
+            preparedStatement.executeUpdate();
 
-        PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Posts WHERE PostID = ?");
-        preparedStatement.setInt(1, PostID);
+            // Show a success message to the user
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Post Removed");
+            alert.setHeaderText("Success!");
+            alert.setContentText("Your Post has been successfully removed.");
+            alert.showAndWait();
 
-
-        // Execute the prepared statement
-        preparedStatement.executeUpdate();
-
-        // Close the prepared statement
+            // Close the prepared statement
 //        preparedStatement.close();
 
-        // Clear the text fields
-        RemovePostIDField.clear();
+            // Clear the text fields
+            RemovePostIDField.clear();
+        } catch (NullPointerException n) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Post Cannot be removed!");
+            alert.setHeaderText("Error");
+            alert.setContentText("Your Post cannot be removed.");
+            alert.showAndWait();
+
+        }
     }
 
 
-        // CHECK IF POST EXISTS BEFORE REMOVING METHOD
-
+    // CHECK IF POST EXISTS BEFORE REMOVING METHOD
     public void checkPostDoesNotExist(String PostID) throws SQLException {
         // Create a prepared statement to check if the Post ID already exists in the database
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM Posts WHERE PostID = ?");
@@ -201,6 +233,21 @@ public class PostController implements Initializable {
 
     public void AddPost(ActionEvent event) throws SQLException, IOException {
         System.out.println("Adding post");
+
+        // Check if any of the text fields are empty
+        if (PostIDField.getText() == null || PostIDField.getText().isEmpty() ||
+                PostContentField.getText() == null || PostContentField.getText().isEmpty() ||
+                PostAuthorField.getText() == null || PostAuthorField.getText().isEmpty() ||
+                PostLikesField.getText() == null || PostLikesField.getText().isEmpty() ||
+                PostSharesField.getText() == null || PostSharesField.getText().isEmpty() ||
+                PostDateTimeField.getText() == null || PostDateTimeField.getText().isEmpty()) {
+            // Show an error message to the user
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error Adding Post");
+            alert.setHeaderText("Please fill in all required fields");
+            alert.showAndWait();
+            return;
+        }
 
         // Get the account information from the text fields
         int PostID = Integer.parseInt(PostIDField.getText());

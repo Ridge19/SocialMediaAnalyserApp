@@ -155,14 +155,11 @@ public class LoginController implements Initializable {
         // Get the AccountController instance.
         AccountController accountController = new AccountController();
 
-        // Load the AccountPage.fxml file.
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AccountPage.fxml")));
 
-        // Set the AccountController instance as the controller for the AccountPage.fxml file.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountPage.fxml"));
         loader.setController(accountController);
 
-        // Create a new scene with the AccountPage.fxml file as the root node.
         Scene scene = new Scene(root);
 
         // Get the stage from the event.

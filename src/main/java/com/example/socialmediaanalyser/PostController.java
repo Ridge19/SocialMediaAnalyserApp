@@ -339,7 +339,7 @@ public class PostController implements Initializable {
 
         System.out.println("Adding/Listing Posts");
 
-        // Get the AccountController instance.
+        // Get the PostController instance.
         PostController postController = new PostController();
 
         // Load the Main-Page.fxml file.

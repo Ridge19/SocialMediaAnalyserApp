@@ -206,9 +206,14 @@ public class PostController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Post Cannot be removed!");
             alert.setHeaderText("Error");
-            alert.setContentText("Your Post cannot be removed.");
+            alert.setContentText("Your Post cannot be removed. Post does not exist.");
             alert.showAndWait();
-
+        } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Removing Post");
+            alert.setHeaderText("Error");
+            alert.setContentText("There was a problem removing your post. Please try again later.");
+            alert.showAndWait();
         }
     }
 
@@ -224,11 +229,12 @@ public class PostController implements Initializable {
 
         // If the result set is not empty, then the Post ID already exists in the database
         if (resultSet.next() && resultSet.getInt(1) == 0) {
-            throw new SQLException("Post ID doesnt exist! Cannot delete");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Post Doesnt exist!");
+            alert.setHeaderText("Error");
+            alert.setContentText("Your Post cannot be removed. check the post ID again.");
+            alert.showAndWait();
         }
-
-        // Close the prepared statement
-//        preparedStatement.close();
     }
 
     public void AddPost(ActionEvent event) throws SQLException, IOException {

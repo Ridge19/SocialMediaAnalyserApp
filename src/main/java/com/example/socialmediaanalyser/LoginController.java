@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.controlsfx.control.action.ActionCheck;
 
 import java.io.IOException;
 import java.net.URL;

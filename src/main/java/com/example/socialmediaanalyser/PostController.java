@@ -68,6 +68,9 @@ public class PostController implements Initializable {
     @FXML
     public Button PostBackButton;
 
+    @FXML
+    public Button RemoveAllButton;
+
     private Connection connection;
 
     public ListView ShowPost;
@@ -160,6 +163,40 @@ public class PostController implements Initializable {
 
     public void ClearPost() throws IOException {
         ShowPost.getItems().clear();
+    }
+
+    public void RemoveAll(ActionEvent event) throws IOException, SQLException {
+        System.out.println("Removing ALL POSTS FROM DATABASE.");
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("WARNING - REMOVING ALL POSTS");
+        alert.setHeaderText("you are about to remove all posts from the database!");
+        alert.setContentText("do you want to continue?");
+        alert.showAndWait();
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            // Get a connection to the database.
+            Connection connection = DriverManager.getConnection("jdbc:sqlite:DataHub.db");
+
+            // Create a prepared statement to delete all posts from the database.
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM Posts");
+
+            // Execute the prepared statement.
+            preparedStatement.executeUpdate();
+
+            // Close the prepared statement and the connection to the database.
+            preparedStatement.close();
+            connection.close();
+
+            // Show a success message to the user.
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Success!");
+            successAlert.setHeaderText("All posts have been successfully removed from the database.");
+            successAlert.showAndWait();
+        } else {
+            //dont do anything
+        }
+
     }
 
     public void RemovePost(ActionEvent event) throws IOException, SQLException {

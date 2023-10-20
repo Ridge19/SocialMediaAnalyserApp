@@ -19,6 +19,8 @@ public class SocialMediaAnalyser extends Application {
         createTableLogin.createLogin();
         CreateTablePosts createTablePosts = new CreateTablePosts();
         createTablePosts.createPosts();
+        InsertPosts insertPosts = new InsertPosts();
+        insertPosts.insertPosts();
 
         FXMLLoader fxmlLoader = new FXMLLoader(SocialMediaAnalyser.class.getResource("LoginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 650, 450);

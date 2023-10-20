@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialmediaanalyser.PostController">
    <children>
       <Label fx:id="RemovePostLabel" layoutX="196.0" layoutY="26.0" text="Remove Post">
@@ -18,5 +17,6 @@
       <TextField fx:id="RemovePostIDField" layoutX="226.0" layoutY="151.0" />
       <Label fx:id="RemovePostIDLabel" layoutX="266.0" layoutY="118.0" text="Enter Post ID" />
       <Button fx:id="RemoveButton" layoutX="275.0" layoutY="200.0" mnemonicParsing="false" onAction="#RemovePost" text="Remove" />
+      <Button fx:id="RemoveAllButton" layoutX="348.0" layoutY="273.0" mnemonicParsing="false" onAction="#RemoveAll" text="Remove ALL posts" />
    </children>
 </AnchorPane>

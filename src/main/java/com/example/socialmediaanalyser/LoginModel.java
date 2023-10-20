@@ -30,8 +30,8 @@ public class LoginModel {
 
     private static String loggedInUser;
 
-    public static boolean loggedInUser(String UserName) {
-        return Boolean.parseBoolean(UserName);
+    public static String loggedInUser() {
+        return loggedInUser;
     }
 
     public static void setLoggedInUser(String loggedInUser) {

@@ -96,7 +96,16 @@ public class EditAccountController implements Initializable {
         String UserName = NewUNameField.getText();
         String Password = NewPWordField.getText();
 
+        // Check if any of the text fields are empty
+        if (CurrentUNameField.getText().isEmpty() || NewUNameField.getText().isEmpty() || NewPWordField.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Empty fields");
+            alert.setHeaderText("Please fill in all the fields.");
+            alert.setContentText("Cannot update Username or Password with empty fields.");
 
+            alert.showAndWait();
+            return;
+        }
 
         // Create a prepared statement to update the username and password in the database
         PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Login SET UserName = ?, Password = ? WHERE UserName = ?");
@@ -134,6 +143,17 @@ public class EditAccountController implements Initializable {
         String CurrentLName = CurrentLNameField.getText();
         String FirstName = NewFNameField.getText();
         String LastName = NewLNameField.getText();
+
+        // Check if any of the text fields are empty
+        if (CurrentFNameField.getText().isEmpty() || NewLNameField.getText().isEmpty() || NewFNameField.getText().isEmpty() || NewLNameField.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Empty fields");
+            alert.setHeaderText("Please fill in all the fields.");
+            alert.setContentText("Cannot update First or Last Name with empty fields.");
+
+            alert.showAndWait();
+            return;
+        }
 
 
         // Create a prepared statement to update the username and password in the database

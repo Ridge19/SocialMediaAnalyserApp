@@ -10,19 +10,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.controlsfx.control.action.Action;
-import org.w3c.dom.Text;
+import org.controlsfx.control.action.ActionCheck;
 
 import java.io.IOException;
-import java.io.ObjectInputFilter;
 import java.net.URL;
 import java.sql.*;
-import java.util.EventObject;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.concurrent.RejectedExecutionException;
 
 // login page controller (checks username and password and if it matches with database).
 public class LoginController implements Initializable {
@@ -54,6 +49,11 @@ public class LoginController implements Initializable {
     private String Password;
     private String UserName;
 
+    private Scene scene;
+
+    @FXML
+    private CheckBox showPasswordCheckBox;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println("Database connected");
@@ -78,6 +78,8 @@ public class LoginController implements Initializable {
                 alert.setContentText("Cannot sign in with empty fields.");
 
                 alert.showAndWait();
+                UsernameField.clear();
+                PasswordField.clear();
                 return;
             }
 
@@ -86,16 +88,14 @@ public class LoginController implements Initializable {
                 com.example.socialmediaanalyser.LoginModel.setLoggedInUser(UsernameField.getText());
                 System.out.println("user name is: " + UsernameField.getText());
 
+                // Get the loggedInUser variable
+                String loggedInUser = String.valueOf(com.example.socialmediaanalyser.LoginModel.loggedInUser());
+
+                // Set the text of the UserLabel label to the loggedInUser variable
+                UserLabel.setText(loggedInUser);
+
                 if (com.example.socialmediaanalyser.LoginModel.isLoggedIn()) {
                     System.out.println("You are now logged in!");
-
-                    String loggedInUser = UsernameField.getText();
-                    System.out.println("Welcome " + loggedInUser + "!");
-                    UserLabel.setText(loggedInUser);
-
-                    UserLabel.getText();
-                    UserLabel.setText("Welcome " + com.example.socialmediaanalyser.LoginModel.loggedInUser(UserName));
-                    UserLabel.setText("Test");
 
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Login successful");
@@ -147,6 +147,7 @@ public class LoginController implements Initializable {
             }
         }
     }
+
 
     public void CreateAccount(ActionEvent event) throws IOException, SQLException {
         System.out.println("Creating account");

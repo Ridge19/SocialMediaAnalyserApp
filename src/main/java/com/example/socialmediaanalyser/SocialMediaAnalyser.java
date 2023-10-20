@@ -25,6 +25,7 @@ public class SocialMediaAnalyser extends Application {
         stage.setTitle("Social Media Manager - Login");
         stage.setScene(scene);
         stage.show();
+
     }
 
 

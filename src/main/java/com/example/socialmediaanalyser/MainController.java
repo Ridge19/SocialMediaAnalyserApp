@@ -70,17 +70,8 @@ public class MainController implements Initializable {
             LoginModel.logout();
             stage.close();
             System.out.println("you successfully logged out!");
-
         } else {
             Stage stage = (Stage) MainPage.getScene().getWindow();
-        }
-
-        if (LoginModel.isLoggedIn() == false) {
-            Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
-            alertInfo.setTitle("Logged out");
-            alertInfo.setHeaderText("You have been successfully logged out!");
-            alertInfo.setContentText("Thank you for using DataHub.");
-            alertInfo.showAndWait();
         }
 
         // Get the AccountController instance.
